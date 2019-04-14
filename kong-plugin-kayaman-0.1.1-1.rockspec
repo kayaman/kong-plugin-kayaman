@@ -1,12 +1,12 @@
 package = "kong-plugin-kayaman"
-version = "0.1.0-1"
+version = "0.1.1-1"
 local pluginName = package:match("^kong%-plugin%-(.+)$")
 
 supported_platforms = {"linux", "macosx"}
 
 source = {
   url = "http://github.com/kayaman/kong-plugin-kayaman.git",
-  tag = "0.1.0"
+  tag = "0.1.1"
 }
 
 description = {
@@ -23,5 +23,8 @@ build = {
   modules = {
     ["kong.plugins.kayaman.handler"] = "kong/plugins/kayaman/handler.lua",
     ["kong.plugins.kayaman.schema"] = "kong/plugins/kayaman/schema.lua",
+    ["kong.plugins.kayaman.daos"] = "kong/plugins/kayaman/daos.lua",
+    ["kong.plugins.kayaman.migrations.init"] = "kong/plugins/kayaman/migrations/init.lua",
+    ["kong.plugins.kayaman.migrations.000_base"] = "kong/plugins/kayaman/migrations/000_base.lua",
   }
 }

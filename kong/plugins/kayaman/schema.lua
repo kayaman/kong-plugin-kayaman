@@ -1,11 +1,7 @@
 return {
-  no_consumer = false, -- this plugin is available on APIs as well as on Consumers,
-  fields = {
-    -- Describe your plugin's configuration's schema here.
-    
+    no_consumer = true,
+    fields = {
+      country = { type = "string", required = true, default = "Italy" },
+      upstream_name = { type = "string", required = true, default = "italy_cluster" },
   },
-  self_check = function(schema, plugin_t, dao, is_updating)
-    -- perform any custom verification
-    return true
-  end
 }

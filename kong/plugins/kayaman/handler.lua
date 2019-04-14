@@ -5,11 +5,14 @@ function Kayaman:new()
   Kayaman.super.new(self, "kayaman")
 end
 
-function Kayaman:access(plugin_conf)
+function Kayaman:access(config)
   Kayaman.super.access(self)
 
-  if kong.request.get_header("x_country") == "Italy" then
-    local ok, err = kong.service.set_upstream("italy_cluster")
+  kong.log.inspect(config.country)
+  kong.log.inspect(config.upstream_name) 
+
+  if kong.request.get_header("x_country") == config.country then
+    local ok, err = kong.service.set_upstream(config.upstream_name)
     kong.response.set_header("X-Kayaman-Proxied", "yes")
     if not ok then
       kong.log.err(err)
