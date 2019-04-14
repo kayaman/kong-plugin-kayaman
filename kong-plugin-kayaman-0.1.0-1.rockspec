@@ -10,8 +10,7 @@ source = {
 }
 
 description = {
-  summary = "This plugin can proxy requests from a specific route to different upstreams 
-            based on the presence of specific headers and its values.",
+  summary = "Proxy requests from specific routes to different upstreams given the presence of specific headers",
   homepage = "http://konghq.com",
   license = "Apache 2.0"
 }
