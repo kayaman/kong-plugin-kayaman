@@ -55,7 +55,7 @@ for _, strategy in helpers.each_strategy() do
 
 
     describe("request", function()
-      it("gets an indication that the request has not been proxied from a header", function()
+      it("gets an indication that the request has been proxied from a header", function()
         local r = assert(client:send {
           method = "GET",
           path = "/local",
