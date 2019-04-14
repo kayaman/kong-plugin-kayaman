@@ -1,6 +1,6 @@
 kong-plugin-kayaman
 ===================
-[![Website][website-badge]][website-url][![Documentation][documentation-badge]][documentation-url][![Kong Nation][kong-nation-badge]][kong-nation-url][![Build Status](https://travis-ci.com/kayaman/kong-plugin-kayaman.svg?branch=master)](https://travis-ci.com/kayaman/kong-plugin-kayaman)
+[![Build Status](https://travis-ci.com/kayaman/kong-plugin-kayaman.svg?branch=master)](https://travis-ci.com/kayaman/kong-plugin-kayaman)[![Website][website-badge]][website-url][![Documentation][documentation-badge]][documentation-url][![Kong Nation][kong-nation-badge]][kong-nation-url]
 
 ## Goal
 
@@ -191,6 +191,7 @@ curl -i http://localhost:8001/plugins
 
 Coded with :heart: by **m@rco.sh**.
 
+[website-url]: https://getkong.org/
 [website-badge]: https://img.shields.io/badge/GETKong.org-Learn%20More-43bf58.svg
 [documentation-url]: https://getkong.org/docs/
 [documentation-badge]: https://img.shields.io/badge/Documentation-Read%20Online-green.svg
