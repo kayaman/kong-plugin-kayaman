@@ -18,7 +18,7 @@ for _, strategy in helpers.each_strategy() do
         local bp = helpers.get_db_utils(strategy, nil, { PLUGIN_NAME })
 
         local route1 = bp.routes:insert({
-          hosts = { "test1.com" },
+          paths = { "/local" }
         })
         bp.plugins:insert {
           name = PLUGIN_NAME,
@@ -32,7 +32,7 @@ for _, strategy in helpers.each_strategy() do
         local bp = helpers.get_db_utils(strategy)
 
         local route1 = bp.routes:insert({
-          hosts = { "test1.com" },
+          paths = { "/local" }
         })
         bp.plugins:insert {
           name = PLUGIN_NAME,
