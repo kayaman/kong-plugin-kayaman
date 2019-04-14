@@ -12,11 +12,7 @@ for _, strategy in helpers.each_strategy() do
       local bp, route1
 
       if KONG_VERSION >= version("0.15.0") then
-        --
-        -- Kong version 0.15.0/1.0.0, new test helpers
-        --
         local bp = helpers.get_db_utils(strategy, nil, { PLUGIN_NAME })
-
         local route1 = bp.routes:insert({
           paths = { "/local" }
         })
@@ -26,11 +22,7 @@ for _, strategy in helpers.each_strategy() do
           config = {},
         }
       else
-        --
-        -- Pre Kong version 0.15.0/1.0.0, older test helpers
-        --
         local bp = helpers.get_db_utils(strategy)
-
         local route1 = bp.routes:insert({
           paths = { "/local" }
         })
@@ -41,13 +33,9 @@ for _, strategy in helpers.each_strategy() do
         }
       end
 
-      -- start kong
       assert(helpers.start_kong({
-        -- set the strategy
         database   = strategy,
-        -- use the custom test template to create a local mock server
         nginx_conf = "spec/fixtures/custom_nginx.template",
-        -- set the config item to make sure our plugin gets loaded
         plugins = "bundled," .. PLUGIN_NAME,  -- since Kong CE 0.14
         custom_plugins = PLUGIN_NAME,         -- pre Kong CE 0.14
       }))
@@ -66,23 +54,20 @@ for _, strategy in helpers.each_strategy() do
     end)
 
 
-
     describe("request", function()
-      it("to be defined", function()
+      it("gets an indication that the request has not been proxied from a header", function()
         local r = assert(client:send {
           method = "GET",
           path = "/local",
           headers = {
-            x_country = "Italy"
+            ["X-Country"] = "Italy"
           }
         })
         assert.response(r).has.status(200)
+        local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
+        assert.equal("yes", header_value)
       end)
-    end)
 
-
-
-    describe("response", function()
       it("gets an indication that the request has not been proxied from a header", function()
         local r = assert(client:send {
           method = "GET",
@@ -94,6 +79,6 @@ for _, strategy in helpers.each_strategy() do
         assert.equal("no", header_value)
       end)
     end)
-
   end)
+
 end
