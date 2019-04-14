@@ -10,12 +10,14 @@ function Kayaman:access(plugin_conf)
 
   if kong.request.get_header("x_country") == "Italy" then
     local ok, err = kong.service.set_upstream("italy_cluster")
+    kong.response.set_header("X-Kayaman-Proxied", "yes")
     if not ok then
       kong.log.err(err)
       return
     end
   else
     kong.service.set_upstream("europe_cluster")
+    kong.response.set_header("X-Kayaman-Proxied", "no")
   end
 end
 

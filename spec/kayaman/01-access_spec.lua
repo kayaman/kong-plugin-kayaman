@@ -1,7 +1,5 @@
 local helpers = require "spec.helpers"
 local version = require("version").version or require("version")
-
-
 local PLUGIN_NAME = "kayaman"
 local KONG_VERSION = version(select(3, assert(helpers.kong_exec("version"))))
 
@@ -70,40 +68,30 @@ for _, strategy in helpers.each_strategy() do
 
 
     describe("request", function()
-      it("gets a 'hello-world' header", function()
+      it("to be defined", function()
         local r = assert(client:send {
           method = "GET",
-          path = "/request",  -- makes mockbin return the entire request
+          path = "/local",
           headers = {
-            host = "test1.com"
+            x_country = "Italy"
           }
         })
-        -- validate that the request succeeded, response status 200
         assert.response(r).has.status(200)
-        -- now check the request (as echoed by mockbin) to have the header
-        local header_value = assert.request(r).has.header("hello-world")
-        -- validate the value of that header
-        assert.equal("this is on a request", header_value)
       end)
     end)
 
 
 
     describe("response", function()
-      it("gets a 'bye-world' header", function()
+      it("gets an indication that the request has not been proxied from a header", function()
         local r = assert(client:send {
           method = "GET",
-          path = "/request",  -- makes mockbin return the entire request
-          headers = {
-            host = "test1.com"
-          }
+          path = "/local",
+          headers = {}
         })
-        -- validate that the request succeeded, response status 200
         assert.response(r).has.status(200)
-        -- now check the response to have the header
-        local header_value = assert.response(r).has.header("bye-world")
-        -- validate the value of that header
-        assert.equal("this is on the response", header_value)
+        local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
+        assert.equal("no", header_value)
       end)
     end)
 
