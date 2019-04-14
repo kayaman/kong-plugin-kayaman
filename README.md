@@ -1,6 +1,6 @@
 kong-plugin-kayaman
 ===================
-[![Build Status](https://travis-ci.com/kayaman/kong-plugin-kayaman.svg?branch=master)](https://travis-ci.com/kayaman/kong-plugin-kayaman)[![Website][website-badge]][website-url][![Documentation][documentation-badge]][documentation-url][![Kong Nation][kong-nation-badge]][kong-nation-url]
+[![Website][website-badge]][website-url][![Documentation][documentation-badge]][documentation-url][![Kong Nation][kong-nation-badge]][kong-nation-url][![Build Status](https://travis-ci.com/kayaman/kong-plugin-kayaman.svg?branch=master)](https://travis-ci.com/kayaman/kong-plugin-kayaman)
 
 ## Goal
 
