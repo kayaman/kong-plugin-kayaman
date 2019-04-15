@@ -26,7 +26,7 @@ X-Kong-Upstream-Latency: 6
 X-Kong-Proxy-Latency: 1
 Via: kong/1.1.1
 
-Saluti :-)
+Greetings :-)
 ```
 
 
@@ -47,7 +47,7 @@ X-Kong-Upstream-Latency: 6
 X-Kong-Proxy-Latency: 2
 Via: kong/1.1.1
 
-Greetings :-)
+Saluti :-)
 ```
 
 
