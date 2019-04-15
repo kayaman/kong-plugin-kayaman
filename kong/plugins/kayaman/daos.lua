@@ -1,12 +1,16 @@
-local schema_def = require "kong.plugins.kayaman.schema"
-local v = require("spec.helpers").validate_plugin_config_schema
+local typedefs = require "kong.db.schema.typedefs"
 
+local SCHEMA = {
+  table = "kayaman",
+  primary_key = { "id" },
+  endpoint_key = "key",
+  cache_key = { "key" },
+  fields = {
+    { id = { type = typedefs.uuid }, },
+    { country = { type = "string", required = true, unique = true }, },
+    { upstream_name = { type = "string", required = true }, },
+    { key = { type = "string", required = false, unique = true, auto = true }, },
+  },
+}
 
-describe("Plugin: kayaman (schema)", function()
-  it("proper config validates", function()
-    local config = { }
-    local ok, _, err = v(config, schema_def)
-    assert.truthy(ok)
-    assert.is_nil(err)
-  end)
-end)
+return { kayaman = SCHEMA }
