@@ -3,8 +3,10 @@ return {
     up = [[
       CREATE TABLE IF NOT EXISTS "kayaman" (
         "id"                    UUID          PRIMARY KEY,
-        "country"               TEXT          UNIQUE,
-        "upstream_name"         TEXT
+        "default_upstream"      TEXT,
+        "name"                  TEXT,
+        "upstream"              TEXT,
+        "key"                   TEXT          UNIQUE,
       );
     ]],
   },
@@ -13,8 +15,10 @@ return {
     up = [[
       CREATE TABLE IF NOT EXISTS kayaman(
         id                   uuid PRIMARY KEY,
-        country              text,
-        upstream_name        text
+        default_upstream     text,
+        name                 text,
+        upstream             text,
+        key                  text
       );
     ]],
   },

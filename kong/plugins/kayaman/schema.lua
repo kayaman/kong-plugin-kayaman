@@ -1,12 +1,14 @@
 return {
-  name = "kayaman",
   no_consumer = true,
   fields = {
-    config = {
-      type = "record",
-      fields = {
-        country = { type = "string", required = true, default = "Italy" },
-        upstream_name = { type = "string", required = true, default = "italy_cluster" },
+    default_upstream = { type = "string", required = false, default = "europe_cluster" },
+    country = {
+      type = "table",
+      schema = {
+        fields = {
+          name = { type = "string", required = true },
+          upstream = { type = "string", required = true },
+        }
       }
     }
   }

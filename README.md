@@ -27,13 +27,19 @@ curl -i -X POST --url http://localhost:8001/plugins \
 
 ## Configuration
 
+```shell
+curl -i -X POST --url http://localhost:8001/plugins/ \
+                --data "name=kayaman" \
+						    --data "config.default_upstream=belgium_cluster" 
+```
+
 
 
 ```shell
 curl -i -X POST --url http://localhost:8001/plugins/ \
                 --data "name=kayaman" \
-						    --data "config.country=Brazil" \
-						    --data "config.upstream_name=belgium_cluster" 						    
+						    --data "config.country.name==Brazil" \
+						    --data "config.country.upstream=belgium_cluster" 						    
 ```
 
 **Important:** The *Upstream* name `MUST` be valid. The plugin isn't doing any kind of integrity check so far.

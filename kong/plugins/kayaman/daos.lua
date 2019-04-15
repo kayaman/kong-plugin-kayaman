@@ -1,16 +1,17 @@
-local typedefs = require "kong.db.schema.typedefs"
-
 local SCHEMA = {
+  primary_key = {"id"},
   table = "kayaman",
-  primary_key = { "country" },
-  endpoint_key = "key",
-  cache_key = { "key" },
   fields = {
-    { id = { type = typedefs.uuid }, },
-    { country = { type = "string", required = true, unique = true }, },
-    { upstream_name = { type = "string", required = true }, },
-    { key = { type = "string", required = false, unique = true, auto = true }, },
-  },
+    id = { type = "id", dao_insert_value = true },
+    default_upstream = { type = "string", required = false },
+    
+    country = {
+        name = { type = "string", required = false },
+        upstream = { type = "string", required = false },
+    },
+
+    key = { type = "string", required = false, unique = true },
+  }
 }
 
-return { kayaman = SCHEMA }
+return { kayaman = SCHEMA } 
