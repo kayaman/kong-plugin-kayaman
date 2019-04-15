@@ -2,7 +2,7 @@ local typedefs = require "kong.db.schema.typedefs"
 
 local SCHEMA = {
   table = "kayaman",
-  primary_key = { "id" },
+  primary_key = { "country" },
   endpoint_key = "key",
   cache_key = { "key" },
   fields = {

@@ -28,7 +28,7 @@ for _, strategy in helpers.each_strategy() do
         bp.plugins:insert {
           name = PLUGIN_NAME,
           route = { id = route2.id },
-          config = { country = "Belgium" },
+          config = { ["country"] = "Belgium" },
         }
       else
         local bp = helpers.get_db_utils(strategy)
@@ -96,10 +96,8 @@ for _, strategy in helpers.each_strategy() do
         local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
         assert.equal("no", header_value)
       end)
-    end)
-  end)
-
-  describe("configuration", function()
+    
+  
     it("gets an indication that the request has been proxied from a header", function()
         local r = assert(client:send {
           method = "GET",
@@ -124,6 +122,6 @@ for _, strategy in helpers.each_strategy() do
         local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
         assert.equal("no", header_value)
       end)
+    end)
   end)
-
-end
+end)
