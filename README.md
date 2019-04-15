@@ -22,7 +22,8 @@ curl -i http://localhost:8000/local
 HTTP/1.1 200 OK
 Transfer-Encoding: chunked
 Connection: keep-alive
-X-Kong-Upstream-Latency: 6
+X-Kayaman-Proxied: no
+X-Kong-Upstream-Latency: 7
 X-Kong-Proxy-Latency: 1
 Via: kong/1.1.1
 
@@ -43,8 +44,9 @@ curl -i -H "X-Country: Italy" http://localhost:8000/local
 HTTP/1.1 200 OK
 Transfer-Encoding: chunked
 Connection: keep-alive
-X-Kong-Upstream-Latency: 6
-X-Kong-Proxy-Latency: 2
+X-Kayaman-Proxied: yes
+X-Kong-Upstream-Latency: 7
+X-Kong-Proxy-Latency: 8
 Via: kong/1.1.1
 
 Saluti :-)
