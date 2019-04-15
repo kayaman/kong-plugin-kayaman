@@ -1,12 +1,12 @@
-local SCHEMA = {
-  primary_key = { "id" },
-  cache_key = { "id" },
-  table = "kayaman",
-  fields = {
-    id = { type = "id", dao_insert_value = true },
-    country = { type = "string", required = true, unique = true },
-    upstream_name = { type = "string", required = true },
-  },
-}
+local schema_def = require "kong.plugins.kayaman.schema"
+local v = require("spec.helpers").validate_plugin_config_schema
 
-return { kayaman = SCHEMA }
+
+describe("Plugin: kayaman (schema)", function()
+  it("proper config validates", function()
+    local config = { }
+    local ok, _, err = v(config, schema_def)
+    assert.truthy(ok)
+    assert.is_nil(err)
+  end)
+end)
