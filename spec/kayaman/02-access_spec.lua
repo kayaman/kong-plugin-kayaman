@@ -21,15 +21,6 @@ for _, strategy in helpers.each_strategy() do
           route = { id = route1.id },
           config = {},
         }
-
-        local route2 = bp.routes:insert({
-          paths = { "/local2" }
-        })
-        bp.plugins:insert {
-          name = PLUGIN_NAME,
-          route = { id = route2.id },
-          config = { ["country"] = "Belgium" },
-        }
       else
         local bp = helpers.get_db_utils(strategy)
         local route1 = bp.routes:insert({
@@ -39,15 +30,6 @@ for _, strategy in helpers.each_strategy() do
           name = PLUGIN_NAME,
           route_id = route1.id,
           config = {},
-        }
-
-        local route2 = bp.routes:insert({
-          paths = { "/local2" }
-        })
-        bp.plugins:insert {
-          name = PLUGIN_NAME,
-          route_id = route2.id,
-          config = { country = "Belgium" },
         }
       end
 
@@ -96,32 +78,7 @@ for _, strategy in helpers.each_strategy() do
         local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
         assert.equal("no", header_value)
       end)
-    
-  
-    it("gets an indication that the request has been proxied from a header", function()
-        local r = assert(client:send {
-          method = "GET",
-          path = "/local2",
-          headers = {
-            ["X-Country"] = "Belgium"
-          }
-        })
-        assert.response(r).has.status(200)
-        local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
-        assert.equal("yes", header_value)
-      end)
-    end)
-
-    it("gets an indication that the request has not been proxied from a header", function()
-        local r = assert(client:send {
-          method = "GET",
-          path = "/local2",
-          headers = {}
-        })
-        assert.response(r).has.status(200)
-        local header_value = assert.response(r).has.header("X-Kayaman-Proxied")
-        assert.equal("no", header_value)
-      end)
     end)
   end)
-end)
+
+end
