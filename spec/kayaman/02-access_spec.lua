@@ -9,7 +9,6 @@ for _, strategy in helpers.each_strategy() do
     local client
 
     lazy_setup(function()
-      local bp, route1
 
       if KONG_VERSION >= version("0.15.0") then
         local bp = helpers.get_db_utils(strategy, nil, { PLUGIN_NAME })

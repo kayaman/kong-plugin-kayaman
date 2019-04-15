@@ -4,8 +4,8 @@ return {
       CREATE TABLE IF NOT EXISTS "kayaman" (
         "id"                    UUID          PRIMARY KEY,
         "default_upstream"      TEXT,
-        "name"                  TEXT,
-        "upstream"              TEXT,
+        "country"               TEXT,
+        "alternate_upstream"    TEXT,
         "key"                   TEXT          UNIQUE
       );
     ]],
@@ -16,8 +16,8 @@ return {
       CREATE TABLE IF NOT EXISTS kayaman(
         id                   uuid PRIMARY KEY,
         default_upstream     text,
-        name                 text,
-        upstream             text,
+        country              text,
+        alternate_upstream   text,
         key                  text
       );
     ]],
