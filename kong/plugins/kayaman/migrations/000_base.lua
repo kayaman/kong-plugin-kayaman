@@ -6,7 +6,7 @@ return {
         "default_upstream"      TEXT,
         "name"                  TEXT,
         "upstream"              TEXT,
-        "key"                   TEXT          UNIQUE,
+        "key"                   TEXT          UNIQUE
       );
     ]],
   },
