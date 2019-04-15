@@ -6,8 +6,8 @@ return {
       type = "table",
       schema = {
         fields = {
-          name = { type = "string", required = true },
-          upstream = { type = "string", required = true },
+          name = { type = "string", required = false },
+          upstream = { type = "string", required = false },
         }
       }
     }
