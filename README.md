@@ -29,16 +29,16 @@ curl -i -X POST --url http://localhost:8001/plugins \
 
 ```shell
 curl -i -X POST --url http://localhost:8001/plugins/ \
-                --data "name=kayaman" \
-						    --data "config.default_upstream=belgium_cluster" 
+                --data "name=kayaman"
 ```
 
-
+**Options**: `default_upstream`, `country` and `alternate_upstream` are optional. Their values can be overriden at installation time. If you need to change after installation, uninstall and reinstall using new values.
 
 ```shell
 curl -i -X POST --url http://localhost:8001/plugins/ \
                 --data "name=kayaman" \
-						    --data "config.country=Brazil" \
+                --data "config.default_upstream=europe_cluster"
+						    --data "config.country=Italy" \
 						    --data "config.alternate_upstream=belgium_cluster" 						    
 ```
 

@@ -8,10 +8,6 @@ end
 function Kayaman:access(config)
   Kayaman.super.access(self)
 
-  kong.log.inspect(config.country)
-  kong.log.inspect(config.default_upstream)
-  kong.log.inspect(config.alternate_upstream)
-
   if kong.request.get_header("x_country") == config.country then
     local ok, err = kong.service.set_upstream(config.alternate_upstream)
     kong.response.set_header("X-Kayaman-Proxied", "yes")
@@ -20,7 +16,7 @@ function Kayaman:access(config)
       return
     end
   else
-    kong.service.set_upstream("europe_cluster")
+    kong.service.set_upstream(config.alternate_upstream)
     kong.response.set_header("X-Kayaman-Proxied", "no")
   end
 end
