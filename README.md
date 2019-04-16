@@ -6,7 +6,45 @@ kong-plugin-kayaman
 
 This plugin can proxy requests from specific routes to different upstreams based on the presence of specific headers.
 
-**Disclaimer:** everything is hardcoded at the moment. Work in progress...
+**Disclaimer:** Not stable, coding for study. Work in progress...
+
+
+
+## Installation 
+
+The plugin must be enabled either through the configuration file `kong.conf` or the specific environment variable.
+
+```shell
+export KONG_PLUGINS=bundled,kayaman
+```
+
+```shell
+curl -i -X POST --url http://localhost:8001/plugins \
+                --data 'name=kayaman'
+```
+
+
+
+## Configuration
+
+```shell
+curl -i -X POST --url http://localhost:8001/plugins/ \
+                --data "name=kayaman"
+```
+
+**Options**: `default_upstream`, `country` and `alternate_upstream` are optional. Their values can be overriden at installation time. If you need to change after installation, uninstall and reinstall using new values.
+
+```shell
+curl -i -X POST --url http://localhost:8001/plugins/ \
+                --data "name=kayaman" \
+                --data "config.default_upstream=europe_cluster"
+						    --data "config.country=Italy" \
+						    --data "config.alternate_upstream=belgium_cluster" 						    
+```
+
+**Important:** The *Upstream* name `MUST` be valid. The plugin isn't doing any kind of integrity check so far.
+
+
 
 ## Usage
 
@@ -54,7 +92,7 @@ Saluti :-)
 
 
 
-## Setup
+## Kong environment setup
 
 Assuming you have Kong installed and running locally. Let's work on setting up a minimal environment to play. 
 
@@ -78,6 +116,15 @@ curl -i -X POST --url http://localhost:8001/services/ \
                 --data 'path=/'
 ```
 
+```shell
+curl -i -X POST --url http://localhost:8001/services/ \
+                --data 'name=belgium-service' \
+                --data 'protocol=http' \
+                --data 'host=belgium_cluster' \
+                --data 'port=6002' \
+                --data 'path=/'
+```
+
 
 
 ### Routes
@@ -89,6 +136,11 @@ curl -i -X POST --url http://localhost:8001/services/europe-service/routes \
 
 ```shell
 curl -i -X POST --url http://localhost:8001/services/italy-service/routes \
+                --data 'paths[]=/local'
+```
+
+```shell
+curl -i -X POST --url http://localhost:8001/services/belgium-service/routes \
                 --data 'paths[]=/local'
 ```
 
@@ -106,6 +158,11 @@ curl -i -X POST --url http://localhost:8001/upstreams \
                 --data 'name=italy_cluster'        
 ```
 
+```shell
+curl -i -X POST --url http://localhost:8001/upstreams \
+                --data 'name=belgium_cluster'  
+```
+
 
 
 ### Targets
@@ -120,22 +177,12 @@ curl -i -X POST --url http://localhost:8001/upstreams/{italy-service-upstream-id
                 --data 'target={host IP address}:6001'
 ```
 
+```shell
+curl -i -X POST --url http://localhost:8001/upstreams/{belgium-service-upstream-id}/targets \
+                --data 'target={host IP address}:6002'
+```
+
 **Important**: Since we will be running all things in the same box, use the *host IP address* at this point. When running **Kong** from inside a container ([Vagrant](<https://github.com/Kong/kong-vagrant>) or *Docker*), using `localhost` or `127.0.0.1` won't work.
-
-
-
-### Plugins
-
-The plugin must be enabled either through the configuration file `kong.conf` or the specific environment variable.
-
-```shell
-export KONG_PLUGINS=bundled,kayaman
-```
-
-```shell
-curl -i -X POST --url http://localhost:8001/plugins \
-                --data 'name=kayaman'
-```
 
 
 
@@ -161,6 +208,14 @@ ncat --listen \
      {host IP address} 6001
 ```
 
+```shell
+ncat --listen \
+     --keep-open \
+     --verbose \
+     --sh-exec "echo 'HTTP/1.1 200 OK\r\n\r\nHello :-)'" \
+     {host IP address} 6002
+```
+
 
 
 ### Docker
@@ -171,6 +226,10 @@ docker run -d --name httpbin-6000 -p 6000:9000 shashiranjan84/httpbin
 
 ```shell
 docker run -d --name httpbin-6001 -p 6001:9000 shashiranjan84/httpbin
+```
+
+```shell
+docker run -d --name httpbin-6002 -p 6002:9000 shashiranjan84/httpbin
 ```
 
 
