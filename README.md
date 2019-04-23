@@ -39,7 +39,7 @@ curl -i -X POST --url http://localhost:8001/plugins/ \
                 --data "name=kayaman" \
                 --data "config.default_upstream=europe_cluster" \
                 --data "config.country=Italy" \
-	        --data "config.alternate_upstream=belgium_cluster" 						    
+	        --data "config.alternate_upstream=italy_cluster" 						    
 ```
 
 **Important:** The *Upstream* name `MUST` be valid. The plugin isn't doing any kind of integrity check so far.

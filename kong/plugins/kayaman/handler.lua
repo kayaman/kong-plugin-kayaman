@@ -16,7 +16,7 @@ function Kayaman:access(config)
       return
     end
   else
-    kong.service.set_upstream(config.alternate_upstream)
+    kong.service.set_upstream(config.default_upstream)
     kong.response.set_header("X-Kayaman-Proxied", "no")
   end
 end
